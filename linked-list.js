@@ -65,15 +65,15 @@ class LinkedList {
   /** getAt(idx): get val at idx. */
 
   getAt(idx, node = false) {
-    if (idx >= this.length) return;
+    if (idx >= this.length || idx < 0) return;
     let curr = this.head;
     let count = 0;
+
     while (curr !== null && count < idx) {
       count++;
       curr = curr.next;
     }
-    if (node) return curr;
-    return curr.val;
+    return node ? curr : curr.val;
   }
 
   /** setAt(idx, val): set val at idx to val */
@@ -100,7 +100,7 @@ class LinkedList {
   /** removeAt(idx): return & remove item at idx, */
 
   removeAt(idx) {
-    if (idx >= this.length) return;
+    if (idx >= this.length || idx < 0) return;
     let val;
     let first = idx === 0;
     let last = idx === this.length - 1;
@@ -110,7 +110,6 @@ class LinkedList {
       val = this.head.val;
       this.head = this.head.next;
       if (this.length === 1) this.tail = null;
-      this.tail = prev.next;
     } else if (last && !first) {
       val = this.tail.val;
       prev.next = null;
